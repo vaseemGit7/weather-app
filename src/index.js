@@ -16,10 +16,10 @@ const parseWeatherData = (data) => {
   return weatherData;
 };
 
-const getCoords = async () => {
+const getCoords = async (location) => {
   try {
     const response = await fetch(
-      "https://api.openweathermap.org/geo/1.0/direct?q=Trichy&appid=aaef257495c3f595680e4bb46f989362",
+      `https://api.openweathermap.org/geo/1.0/direct?q=${location}&appid=aaef257495c3f595680e4bb46f989362`,
       { mode: "cors" },
     );
 
@@ -34,20 +34,29 @@ const getCoords = async () => {
   }
 };
 
-const getWeatherData = async (coordsData) => {
-  const coords = await coordsData;
-  console.log("Coords Data", coords);
+const getWeatherData = async (location) => {
   try {
+    const coords = await getCoords(location);
     const response = await fetch(
       `https://api.openweathermap.org/data/3.0/onecall?lat=${coords.lat}&lon=${coords.lon}&units=metric&appid=aaef257495c3f595680e4bb46f989362`,
       { mode: "cors" },
     );
-    const data = await response.json();
-    const weatherData = parseWeatherData(data);
-    console.log(weatherData.currentData);
+    const data = parseWeatherData(await response.json());
+    return data;
   } catch (err) {
     console.log(err);
+    return null;
   }
 };
 
-getWeatherData(getCoords());
+const searchBtn = document.querySelector("#searchBtn");
+searchBtn.addEventListener("click", async () => {
+  const searchInput = document.querySelector("#searchInput").value;
+  const obtainedData = await getWeatherData(searchInput);
+
+  if (obtainedData) {
+    console.log("Obtained data ", obtainedData.currentData);
+  } else {
+    console.log("Unable to fetch data");
+  }
+});
