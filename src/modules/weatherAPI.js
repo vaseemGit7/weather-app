@@ -1,6 +1,8 @@
 const weatherAPI = (() => {
   const parseWeatherData = (data) => {
     const { current } = data;
+    const { hourly } = data;
+    const { daily } = data;
     const weatherData = {
       currentData: {
         currentTime: current.dt,
@@ -12,6 +14,12 @@ const weatherAPI = (() => {
         currentWindSpeed: current.wind_speed,
         currentWindDeg: current.wind_deg,
         currentWeather: current.weather[0].main,
+      },
+      hourlyData: {
+        hourlyArr: hourly,
+      },
+      dailyData: {
+        dailyData: daily,
       },
     };
     return weatherData;

@@ -8,7 +8,9 @@ const uiController = (() => {
       const obtainedData = await weatherAPI.getWeatherData(searchInput);
 
       if (obtainedData) {
-        console.log("Obtained data ", obtainedData.currentData);
+        console.log("Current data ", obtainedData.currentData);
+        console.log("Hourly data", obtainedData.hourlyData);
+        console.log("Daily data", obtainedData.dailyData);
       } else {
         console.log("Unable to fetch data");
       }
