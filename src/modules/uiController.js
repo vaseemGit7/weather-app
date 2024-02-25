@@ -1,12 +1,13 @@
 import weatherAPI from "./weatherAPI";
+import utils from "./utils";
 
 const uiController = (() => {
   const displayCurrent = (currentData) => {
     const currentTime = document.querySelector(".currentTime");
-    currentTime.textContent = `Current Time : ${currentData.currentTime}`;
+    currentTime.textContent = `Current Time : ${utils.getTime(currentData.currentTime)} `;
 
     const currentSunRise = document.querySelector(".currentSunRise");
-    currentSunRise.textContent = `Sun Rise : ${currentData.currentSunRise}`;
+    currentSunRise.textContent = `Sun Rise : ${utils.getTime(currentData.currentSunRise)}`;
 
     const currentTemp = document.querySelector(".currentTemp");
     currentTemp.textContent = `Temp : ${currentData.currentTemp}`;
