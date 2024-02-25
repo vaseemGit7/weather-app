@@ -6,16 +6,35 @@ const utils = (() => {
     return date;
   };
 
-  const getTime = (unixDate) => {
-    const date = convertUnix(unixDate);
+  const getTime = (unixData) => {
+    const date = convertUnix(unixData);
 
     const hours = date.getHours();
     const minutes = date.getMinutes();
 
     return `${hours}:${minutes}`;
   };
+
+  const getDay = (unixData) => {
+    const date = convertUnix(unixData);
+
+    const day = date.getDay();
+
+    const weekDays = {
+      0: "Sunday",
+      1: "Monday",
+      2: "Tuesday",
+      3: "Wednesday",
+      4: "Thursday",
+      5: "Friday",
+      6: "Saturday",
+    };
+
+    return weekDays[day];
+  };
   return {
     getTime,
+    getDay,
   };
 })();
 

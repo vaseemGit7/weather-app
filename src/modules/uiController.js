@@ -67,7 +67,7 @@ const uiController = (() => {
       dailyDiv.style.display = "flex";
 
       const dailyTime = document.createElement("div");
-      dailyTime.textContent = ` Day : ${utils.getTime(dailyData[i].dt)}`;
+      dailyTime.textContent = ` Day : ${utils.getDay(dailyData[i].dt)}`;
 
       const dailyTemp = document.createElement("div");
       dailyTemp.textContent = ` Day Temp : ${dailyData[i].temp.max}`;
