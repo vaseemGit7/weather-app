@@ -31,6 +31,31 @@ const uiController = (() => {
     currentWeather.textContent = `Weather : ${currentData.currentWeather}`;
   };
 
+  const displayHour = (hourlyData) => {
+    const { hourlyArr } = hourlyData;
+
+    const hourlyWeather = document.querySelector(".hourly-weather");
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < 24; i++) {
+      const hourDiv = document.createElement("div");
+      hourDiv.style.display = "flex";
+
+      const hourTime = document.createElement("div");
+      hourTime.textContent = `Hour : ${utils.getTime(hourlyArr[i].dt)}`;
+
+      const hourTemp = document.createElement("div");
+      hourTemp.textContent = `Temp : ${hourlyArr[i].temp}`;
+
+      const hourWeather = document.createElement("div");
+      hourWeather.textContent = `Weather ${hourlyArr[i].weather[0].main}`;
+
+      hourDiv.appendChild(hourTime);
+      hourDiv.appendChild(hourWeather);
+      hourDiv.appendChild(hourTemp);
+      hourlyWeather.appendChild(hourDiv);
+    }
+  };
+
   const displayData = () => {
     const searchBtn = document.querySelector("#searchBtn");
     searchBtn.addEventListener("click", async () => {
@@ -39,7 +64,7 @@ const uiController = (() => {
 
       if (obtainedData) {
         displayCurrent(obtainedData.currentData);
-        console.log("Hourly data", obtainedData.hourlyData);
+        displayHour(obtainedData.hourlyData);
         console.log("Daily data", obtainedData.dailyData);
       } else {
         console.log("Unable to fetch data");
