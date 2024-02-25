@@ -34,7 +34,7 @@ const uiController = (() => {
   const displayHour = (hourlyData) => {
     const { hourlyArr } = hourlyData;
 
-    const hourlyWeather = document.querySelector(".hourly-weather");
+    const hourlyWeatherDiv = document.querySelector(".hourly-weather");
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < 24; i++) {
       const hourDiv = document.createElement("div");
@@ -52,7 +52,33 @@ const uiController = (() => {
       hourDiv.appendChild(hourTime);
       hourDiv.appendChild(hourWeather);
       hourDiv.appendChild(hourTemp);
-      hourlyWeather.appendChild(hourDiv);
+      hourlyWeatherDiv.appendChild(hourDiv);
+    }
+  };
+
+  const displayDaily = (daily) => {
+    const { dailyData } = daily;
+
+    const dailyWeatherDiv = document.querySelector(".daily-weather");
+
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < 7; i++) {
+      const dailyDiv = document.createElement("div");
+      dailyDiv.style.display = "flex";
+
+      const dailyTime = document.createElement("div");
+      dailyTime.textContent = ` Day : ${utils.getTime(dailyData[i].dt)}`;
+
+      const dailyTemp = document.createElement("div");
+      dailyTemp.textContent = ` Day Temp : ${dailyData[i].temp.max}`;
+
+      const dailyWeather = document.createElement("div");
+      dailyWeather.textContent = ` Day Weather ${dailyData[i].weather[0].main}`;
+
+      dailyDiv.appendChild(dailyTime);
+      dailyDiv.appendChild(dailyWeather);
+      dailyDiv.appendChild(dailyTemp);
+      dailyWeatherDiv.appendChild(dailyDiv);
     }
   };
 
@@ -65,7 +91,7 @@ const uiController = (() => {
       if (obtainedData) {
         displayCurrent(obtainedData.currentData);
         displayHour(obtainedData.hourlyData);
-        console.log("Daily data", obtainedData.dailyData);
+        displayDaily(obtainedData.dailyData);
       } else {
         console.log("Unable to fetch data");
       }
