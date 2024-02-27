@@ -19,7 +19,7 @@ const weatherAPI = (() => {
         hourlyArr: hourly,
       },
       dailyData: {
-        dailyData: daily,
+        dailyArr: daily,
       },
     };
     return weatherData;
@@ -34,8 +34,12 @@ const weatherAPI = (() => {
 
       const data = await response.json();
       console.log("Data", data[0]);
-      console.log("lat :", data[0].lat, " ", "lon :", data[0].lon);
-      const coords = { lat: data[0].lat, lon: data[0].lon };
+      console.log("lat :", data[0].lat, " ", "lon :", data[0].lon, " ");
+      const coords = {
+        lat: data[0].lat,
+        lon: data[0].lon,
+        location: data[0].name,
+      };
       return coords;
     } catch (err) {
       console.log(err);
@@ -50,8 +54,10 @@ const weatherAPI = (() => {
         `https://api.openweathermap.org/data/3.0/onecall?lat=${coords.lat}&lon=${coords.lon}&units=metric&appid=aaef257495c3f595680e4bb46f989362`,
         { mode: "cors" },
       );
+      const locationName = coords.location;
       const data = parseWeatherData(await response.json());
-      return data;
+      console.log(data);
+      return { data, locationName };
     } catch (err) {
       console.log(err);
       return null;

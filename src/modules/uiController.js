@@ -2,18 +2,21 @@ import weatherAPI from "./weatherAPI";
 import utils from "./utils";
 
 const uiController = (() => {
-  const displayCurrent = (currentData) => {
-    const currentTime = document.querySelector(".currentTime");
-    currentTime.textContent = `Current Time : ${utils.getTime(currentData.currentTime)} `;
+  const displayCurrent = (currentData, locationName) => {
+    const currentLocation = document.querySelector("#currentPlace");
+    currentLocation.textContent = locationName;
+
+    const currentTime = document.querySelector("#currentTime");
+    currentTime.textContent = utils.getTime(currentData.currentTime);
 
     const currentSunRise = document.querySelector(".currentSunRise");
     currentSunRise.textContent = `Sun Rise : ${utils.getTime(currentData.currentSunRise)}`;
 
-    const currentTemp = document.querySelector(".currentTemp");
-    currentTemp.textContent = `Temp : ${currentData.currentTemp}`;
+    const currentTemp = document.querySelector("#currentTemp");
+    currentTemp.textContent = currentData.currentTemp;
 
-    const currentFeelsLike = document.querySelector(".currentFeelsLike");
-    currentFeelsLike.textContent = `Feels like : ${currentData.currentFeelsLike}`;
+    const currentFeelsLike = document.querySelector("#currentFeelsLike");
+    currentFeelsLike.textContent = currentData.currentFeelsLike;
 
     const currentHumidity = document.querySelector(".currentHumidity");
     currentHumidity.textContent = `Humidity : ${currentData.currentHumidity}`;
@@ -27,8 +30,8 @@ const uiController = (() => {
     const currentWindDeg = document.querySelector(".currentWindDeg");
     currentWindDeg.textContent = `Wind Drag : ${currentData.currentWindDeg}`;
 
-    const currentWeather = document.querySelector(".currentWeather");
-    currentWeather.textContent = `Weather : ${currentData.currentWeather}`;
+    const currentWeather = document.querySelector("#currentWeatherText");
+    currentWeather.textContent = currentData.currentWeather;
   };
 
   const displayHour = (hourlyData) => {
@@ -56,8 +59,8 @@ const uiController = (() => {
     }
   };
 
-  const displayDaily = (daily) => {
-    const { dailyData } = daily;
+  const displayDaily = (dailyData) => {
+    const { dailyArr } = dailyData;
 
     const dailyWeatherDiv = document.querySelector(".daily-weather");
 
@@ -67,19 +70,30 @@ const uiController = (() => {
       dailyDiv.style.display = "flex";
 
       const dailyTime = document.createElement("div");
-      dailyTime.textContent = ` Day : ${utils.getDay(dailyData[i].dt)}`;
+      dailyTime.textContent = ` Day : ${utils.getDay(dailyArr[i].dt)}`;
 
       const dailyTemp = document.createElement("div");
-      dailyTemp.textContent = ` Day Temp : ${dailyData[i].temp.max}`;
+      dailyTemp.textContent = ` Day Temp : ${dailyArr[i].temp.max}`;
 
       const dailyWeather = document.createElement("div");
-      dailyWeather.textContent = ` Day Weather ${dailyData[i].weather[0].main}`;
+      dailyWeather.textContent = ` Day Weather ${dailyArr[i].weather[0].main}`;
 
       dailyDiv.appendChild(dailyTime);
       dailyDiv.appendChild(dailyWeather);
       dailyDiv.appendChild(dailyTemp);
       dailyWeatherDiv.appendChild(dailyDiv);
     }
+  };
+
+  const displayExtraInfo = (hourly, daily) => {
+    const { hourlyArr } = hourly;
+    const { dailyArr } = daily;
+
+    const currentRainProbability = document.querySelector(
+      "#currentRainProbability",
+    );
+    const popPercentage = (hourlyArr[0].pop * 100).toFixed(0);
+    currentRainProbability.textContent = `${popPercentage}%`;
   };
 
   const displayData = () => {
@@ -89,9 +103,16 @@ const uiController = (() => {
       const obtainedData = await weatherAPI.getWeatherData(searchInput);
 
       if (obtainedData) {
-        displayCurrent(obtainedData.currentData);
-        displayHour(obtainedData.hourlyData);
-        displayDaily(obtainedData.dailyData);
+        displayCurrent(
+          obtainedData.data.currentData,
+          obtainedData.locationName,
+        );
+        displayHour(obtainedData.data.hourlyData);
+        displayDaily(obtainedData.data.dailyData);
+        displayExtraInfo(
+          obtainedData.data.hourlyData,
+          obtainedData.data.dailyData,
+        );
       } else {
         console.log("Unable to fetch data");
       }
