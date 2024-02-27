@@ -7,8 +7,42 @@
     <script defer src="main.js"></script>
   </head>
   <body>
-    <input type="text" id="searchInput" />
-    <button id="searchBtn">Search</button>
+    <div class="app-container">
+      <div class="weather-report-container">
+        <div class="seach-box">
+          <input type="text" id="searchInput" />
+          <button id="searchBtn">Search</button>
+        </div>
+        <div class="weather-report">
+          <div class="location-time">
+            <p id="currentPlace">London,UK</p>
+            <p id="currentTime">11:11</p>
+          </div>
+          <p id="currentWeatherText">Sunny</p>
+          <div class="temperature">
+            <p id="currentTemp">36°C</p>
+            <img src="" alt="" id="currentWeatherIcon" />
+          </div>
+          <p id="currentTempMinMax">38°C/32°C</p>
+        </div>
+        <div class="weather-conditions">
+          <div class="primary-info">
+            <img src="" alt="" class="info-icon" />
+            <div class="info-details">
+              <p class="info-title">Feels like</p>
+              <p class="info-value" id="currentFeelsLike">36°C</p>
+            </div>
+          </div>
+          <div class="primary-info">
+            <img src="" alt="" class="info-icon" />
+            <div class="info-details">
+              <p class="info-title">Rain probability</p>
+              <p class="info-value" id="currentRainProbability">10%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="current-weather">
       <h3 class="currentTime"></h3>
