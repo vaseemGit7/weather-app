@@ -59,22 +59,30 @@ const uiController = (() => {
 
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < 7; i++) {
-      const dailyDiv = document.createElement("div");
-      dailyDiv.style.display = "flex";
+      const weatherInfoDiv = document.createElement("div");
+      weatherInfoDiv.classList.add("weather-info");
 
-      const dailyTime = document.createElement("div");
-      dailyTime.textContent = ` Day : ${utils.getDay(dailyArr[i].dt)}`;
+      const day = document.createElement("p");
+      day.classList.add("day");
+      day.textContent = utils.getDay(dailyArr[i].dt);
 
-      const dailyTemp = document.createElement("div");
-      dailyTemp.textContent = ` Day Temp : ${dailyArr[i].temp.max}`;
+      const weatherIcon = document.createElement("img");
+      weatherIcon.classList.add("day-weather-icon");
+      weatherIcon.src = "";
+      weatherIcon.alt = "";
 
-      const dailyWeather = document.createElement("div");
-      dailyWeather.textContent = ` Day Weather ${dailyArr[i].weather[0].main}`;
+      const dayTemp = document.createElement("p");
+      dayTemp.classList.add("hour-temperature");
+      dayTemp.textContent = dailyArr[i].temp.max;
 
-      dailyDiv.appendChild(dailyTime);
-      dailyDiv.appendChild(dailyWeather);
-      dailyDiv.appendChild(dailyTemp);
-      dailyWeatherDiv.appendChild(dailyDiv);
+      weatherInfoDiv.appendChild(day);
+      weatherInfoDiv.appendChild(weatherIcon);
+      weatherInfoDiv.appendChild(dayTemp);
+
+      dailyWeatherDiv.appendChild(weatherInfoDiv);
+
+      // const dailyWeather = document.createElement("div");
+      // dailyWeather.textContent = ` Day Weather ${dailyArr[i].weather[0].main}`;
     }
   };
 
