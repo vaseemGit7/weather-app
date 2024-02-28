@@ -77,3 +77,14 @@ html {
 .current-date {
   grid-column: 1/4;
 }
+
+.hourly-weather {
+  display: flex;
+  overflow-x: scroll;
+  border: 3px solid red;
+}
+
+.weather-info {
+  display: flex;
+  flex-direction: column;
+}
