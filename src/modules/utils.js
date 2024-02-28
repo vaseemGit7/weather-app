@@ -32,9 +32,46 @@ const utils = (() => {
 
     return weekDays[day];
   };
+
+  const getMonth = (unixData) => {
+    const date = convertUnix(unixData);
+
+    const month = date.getMonth();
+
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    return months[month];
+  };
+
+  const getDate = (unixData) => {
+    const converted = convertUnix(unixData);
+
+    const day = getDay(unixData);
+    const date = converted.getDate();
+    const month = getMonth(unixData);
+    const year = converted.getFullYear();
+
+    const result = `${day} ${date}, ${month} ${year}`;
+
+    return result;
+  };
   return {
     getTime,
     getDay,
+    getDate,
   };
 })();
 

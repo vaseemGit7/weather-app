@@ -6,13 +6,14 @@ const weatherAPI = (() => {
     const weatherData = {
       currentData: {
         currentTime: current.dt,
-        currentSunRise: current.sunrise,
+        currentSunrise: current.sunrise,
+        currentSunset: current.sunset,
         currentTemp: current.temp,
         currentFeelsLike: current.feels_like,
         currentHumidity: current.humidity,
         currentUVIndex: current.uvi,
+        currentPressure: current.pressure,
         currentWindSpeed: current.wind_speed,
-        currentWindDeg: current.wind_deg,
         currentWeather: current.weather[0].main,
       },
       hourlyData: {

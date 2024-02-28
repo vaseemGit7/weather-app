@@ -9,26 +9,11 @@ const uiController = (() => {
     const currentTime = document.querySelector("#currentTime");
     currentTime.textContent = utils.getTime(currentData.currentTime);
 
-    const currentSunRise = document.querySelector(".currentSunRise");
-    currentSunRise.textContent = `Sun Rise : ${utils.getTime(currentData.currentSunRise)}`;
-
     const currentTemp = document.querySelector("#currentTemp");
     currentTemp.textContent = currentData.currentTemp;
 
     const currentFeelsLike = document.querySelector("#currentFeelsLike");
     currentFeelsLike.textContent = currentData.currentFeelsLike;
-
-    const currentHumidity = document.querySelector(".currentHumidity");
-    currentHumidity.textContent = `Humidity : ${currentData.currentHumidity}`;
-
-    const currentUVIndex = document.querySelector(".currentUVIndex");
-    currentUVIndex.textContent = ` UVIndex : ${currentData.currentUVIndex}`;
-
-    const currentWindSpeed = document.querySelector(".currentWindSpeed");
-    currentWindSpeed.textContent = `Wind Speed : ${currentData.currentWindSpeed}`;
-
-    const currentWindDeg = document.querySelector(".currentWindDeg");
-    currentWindDeg.textContent = `Wind Drag : ${currentData.currentWindDeg}`;
 
     const currentWeather = document.querySelector("#currentWeatherText");
     currentWeather.textContent = currentData.currentWeather;
@@ -85,7 +70,7 @@ const uiController = (() => {
     }
   };
 
-  const displayExtraInfo = (hourly, daily) => {
+  const displayExtraInfo = (current, hourly, daily) => {
     const { hourlyArr } = hourly;
     const { dailyArr } = daily;
 
@@ -94,6 +79,33 @@ const uiController = (() => {
     );
     const popPercentage = (hourlyArr[0].pop * 100).toFixed(0);
     currentRainProbability.textContent = `${popPercentage}%`;
+
+    const currentData = document.querySelector("#currentDate");
+    currentData.textContent = `${utils.getDate(current.currentTime)}`;
+
+    const currentTempMax = document.querySelector("#currentTempMax");
+    currentTempMax.textContent = dailyArr[0].temp.max;
+
+    const currentTempMin = document.querySelector("#currentTempMin");
+    currentTempMin.textContent = dailyArr[0].temp.min;
+
+    const currentSunrise = document.querySelector("#currentSunrise");
+    currentSunrise.textContent = utils.getTime(current.currentSunrise);
+
+    const currentSunset = document.querySelector("#currentSunset");
+    currentSunset.textContent = utils.getTime(current.currentSunset);
+
+    const currentHumidity = document.querySelector("#currentHumidity");
+    currentHumidity.textContent = `${current.currentHumidity}%`;
+
+    const currentUVIndex = document.querySelector("#currentUVIndex");
+    currentUVIndex.textContent = current.currentUVIndex;
+
+    const currentPressure = document.querySelector("#currentPressure");
+    currentPressure.textContent = current.currentPressure;
+
+    const currentWindSpeed = document.querySelector("#currentWindSpeed");
+    currentWindSpeed.textContent = current.currentWindSpeed;
   };
 
   const displayData = () => {
@@ -110,6 +122,7 @@ const uiController = (() => {
         displayHour(obtainedData.data.hourlyData);
         displayDaily(obtainedData.data.dailyData);
         displayExtraInfo(
+          obtainedData.data.currentData,
           obtainedData.data.hourlyData,
           obtainedData.data.dailyData,
         );
