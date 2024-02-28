@@ -25,22 +25,30 @@ const uiController = (() => {
     const hourlyWeatherDiv = document.querySelector(".hourly-weather");
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < 24; i++) {
-      const hourDiv = document.createElement("div");
-      hourDiv.style.display = "flex";
+      const weatherInfoDiv = document.createElement("div");
+      weatherInfoDiv.classList.add("weather-info");
 
-      const hourTime = document.createElement("div");
-      hourTime.textContent = `Hour : ${utils.getTime(hourlyArr[i].dt)}`;
+      const hourTime = document.createElement("p");
+      hourTime.classList.add("hour");
+      hourTime.textContent = utils.getTime(hourlyArr[i].dt);
 
-      const hourTemp = document.createElement("div");
-      hourTemp.textContent = `Temp : ${hourlyArr[i].temp}`;
+      const weatherIcon = document.createElement("img");
+      weatherIcon.classList.add("hour-weather-icon");
+      weatherIcon.src = "";
+      weatherIcon.alt = "";
 
-      const hourWeather = document.createElement("div");
-      hourWeather.textContent = `Weather ${hourlyArr[i].weather[0].main}`;
+      const hourTemp = document.createElement("p");
+      hourTemp.classList.add("hour-temperature");
+      hourTemp.textContent = hourlyArr[i].temp;
 
-      hourDiv.appendChild(hourTime);
-      hourDiv.appendChild(hourWeather);
-      hourDiv.appendChild(hourTemp);
-      hourlyWeatherDiv.appendChild(hourDiv);
+      weatherInfoDiv.appendChild(hourTime);
+      weatherInfoDiv.appendChild(weatherIcon);
+      weatherInfoDiv.appendChild(hourTemp);
+
+      hourlyWeatherDiv.appendChild(weatherInfoDiv);
+
+      // const hourWeather = document.createElement("div");
+      // hourWeather.textContent = `Weather ${hourlyArr[i].weather[0].main}`;
     }
   };
 
