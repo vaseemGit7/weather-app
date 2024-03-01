@@ -1,4 +1,9 @@
-import { differenceInMilliseconds, getUnixTime, fromUnixTime } from "date-fns";
+import {
+  format,
+  differenceInMilliseconds,
+  getUnixTime,
+  fromUnixTime,
+} from "date-fns";
 
 const utils = (() => {
   const convertUnix = (unix) => {
@@ -8,11 +13,8 @@ const utils = (() => {
 
   const getTime = (unixData) => {
     const date = convertUnix(unixData);
-
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-
-    return `${hours}:${minutes}`;
+    const formattedTime = format(date, "h:mm a");
+    return formattedTime;
   };
 
   const getCityTime = (offset) => {
@@ -31,7 +33,9 @@ const utils = (() => {
       hour,
     );
     const forecastTime = currentLocationTime - timeDifference;
-    return forecastTime;
+    const date = convertUnix(forecastTime);
+    const formattedTime = format(date, "haaa");
+    return formattedTime;
   };
 
   const getDay = (unixData) => {

@@ -22,10 +22,10 @@ const uiController = (() => {
     currentTime.textContent = utils.getTime(cityTime);
 
     const currentTemp = document.querySelector("#currentTemp");
-    currentTemp.textContent = currentData.currentTemp;
+    currentTemp.textContent = `${Math.round(currentData.currentTemp)}°C`;
 
     const currentFeelsLike = document.querySelector("#currentFeelsLike");
-    currentFeelsLike.textContent = currentData.currentFeelsLike;
+    currentFeelsLike.textContent = `${Math.round(currentData.currentFeelsLike)}°C`;
 
     const currentWeather = document.querySelector("#currentWeatherText");
     currentWeather.textContent = currentData.currentWeather;
@@ -47,7 +47,6 @@ const uiController = (() => {
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < 24; i++) {
       const weatherId = hourlyArr[i].weather[0].id;
-      const forecastTime = utils.getHour(currentLocationTime, hourlyArr[i].dt);
       const weatherIcon = utils.getWeatherIcon(
         weatherId,
         currentData.currentTime,
@@ -60,7 +59,10 @@ const uiController = (() => {
 
       const hourTime = document.createElement("p");
       hourTime.classList.add("hour");
-      hourTime.textContent = utils.getTime(forecastTime);
+      hourTime.textContent = utils.getHour(
+        currentLocationTime,
+        hourlyArr[i].dt,
+      );
 
       const hourlyWeatherIcon = document.createElement("img");
       hourlyWeatherIcon.classList.add("hour-weather-icon");
@@ -73,7 +75,7 @@ const uiController = (() => {
 
       const hourTemp = document.createElement("p");
       hourTemp.classList.add("hour-temperature");
-      hourTemp.textContent = hourlyArr[i].temp;
+      hourTemp.textContent = `${Math.round(hourlyArr[i].temp)}°C`;
 
       weatherInfoDiv.appendChild(hourTime);
       weatherInfoDiv.appendChild(hourlyWeatherIcon);
@@ -116,7 +118,7 @@ const uiController = (() => {
 
       const dayTemp = document.createElement("p");
       dayTemp.classList.add("hour-temperature");
-      dayTemp.textContent = dailyArr[i].temp.max;
+      dayTemp.textContent = `${Math.round(dailyArr[i].temp.max)}°C`;
 
       weatherInfoDiv.appendChild(day);
       weatherInfoDiv.appendChild(dayWeatherIcon);
@@ -141,10 +143,10 @@ const uiController = (() => {
     currentData.textContent = `${utils.getDate(cityDate)}`;
 
     const currentTempMax = document.querySelector("#currentTempMax");
-    currentTempMax.textContent = dailyArr[0].temp.max;
+    currentTempMax.textContent = `${Math.round(dailyArr[0].temp.max)}°C`;
 
     const currentTempMin = document.querySelector("#currentTempMin");
-    currentTempMin.textContent = dailyArr[0].temp.min;
+    currentTempMin.textContent = `${Math.round(dailyArr[0].temp.min)}°C`;
 
     const currentSunrise = document.querySelector("#currentSunrise");
     currentSunrise.textContent = utils.getTime(current.currentSunrise);
