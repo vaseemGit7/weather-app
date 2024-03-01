@@ -23,6 +23,7 @@ const weatherAPI = (() => {
       dailyData: {
         dailyArr: daily,
       },
+      timeOffset: data.timezone_offset,
     };
     return weatherData;
   };

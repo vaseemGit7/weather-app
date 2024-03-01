@@ -5,8 +5,8 @@ const uiController = (() => {
   const importIcon = (weatherIcon) =>
     import(`../weather-icons/${weatherIcon}.svg`);
 
-  const displayCurrent = (currentData, locationName) => {
-    // const time = utils.getTime(currentData.currentTime);
+  const displayCurrent = (currentData, locationName, timeOffset) => {
+    const cityTime = utils.getCityTime(timeOffset);
     const weatherId = currentData.currentWeatherId;
     const weatherIcon = utils.getWeatherIcon(
       weatherId,
@@ -19,7 +19,7 @@ const uiController = (() => {
     currentLocation.textContent = locationName;
 
     const currentTime = document.querySelector("#currentTime");
-    currentTime.textContent = utils.getTime(currentData.currentTime);
+    currentTime.textContent = utils.getTime(cityTime);
 
     const currentTemp = document.querySelector("#currentTemp");
     currentTemp.textContent = currentData.currentTemp;
@@ -38,15 +38,16 @@ const uiController = (() => {
     });
   };
 
-  const displayHour = (hourlyData, currentData) => {
+  const displayHour = (hourlyData, currentData, timeOffset) => {
     const { hourlyArr } = hourlyData;
-
+    const currentLocationTime = utils.getCityTime(timeOffset);
     const hourlyWeatherDiv = document.querySelector(".hourly-weather");
     hourlyWeatherDiv.innerHTML = "";
 
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < 24; i++) {
       const weatherId = hourlyArr[i].weather[0].id;
+      const forecastTime = utils.getHour(currentLocationTime, hourlyArr[i].dt);
       const weatherIcon = utils.getWeatherIcon(
         weatherId,
         currentData.currentTime,
@@ -59,7 +60,7 @@ const uiController = (() => {
 
       const hourTime = document.createElement("p");
       hourTime.classList.add("hour");
-      hourTime.textContent = utils.getTime(hourlyArr[i].dt);
+      hourTime.textContent = utils.getTime(forecastTime);
 
       const hourlyWeatherIcon = document.createElement("img");
       hourlyWeatherIcon.classList.add("hour-weather-icon");
@@ -125,9 +126,10 @@ const uiController = (() => {
     }
   };
 
-  const displayExtraInfo = (current, hourly, daily) => {
+  const displayExtraInfo = (current, hourly, daily, timeOffset) => {
     const { hourlyArr } = hourly;
     const { dailyArr } = daily;
+    const cityDate = utils.getCityTime(timeOffset);
 
     const currentRainProbability = document.querySelector(
       "#currentRainProbability",
@@ -136,7 +138,7 @@ const uiController = (() => {
     currentRainProbability.textContent = `${popPercentage}%`;
 
     const currentData = document.querySelector("#currentDate");
-    currentData.textContent = `${utils.getDate(current.currentTime)}`;
+    currentData.textContent = `${utils.getDate(cityDate)}`;
 
     const currentTempMax = document.querySelector("#currentTempMax");
     currentTempMax.textContent = dailyArr[0].temp.max;
@@ -173,16 +175,19 @@ const uiController = (() => {
         displayCurrent(
           obtainedData.data.currentData,
           obtainedData.locationName,
+          obtainedData.data.timeOffset,
         );
         displayHour(
           obtainedData.data.hourlyData,
           obtainedData.data.currentData,
+          obtainedData.data.timeOffset,
         );
         displayDaily(obtainedData.data.dailyData);
         displayExtraInfo(
           obtainedData.data.currentData,
           obtainedData.data.hourlyData,
           obtainedData.data.dailyData,
+          obtainedData.data.timeOffset,
         );
       } else {
         console.log("Unable to fetch data");
