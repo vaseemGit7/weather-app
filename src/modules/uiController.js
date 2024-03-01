@@ -6,7 +6,7 @@ const uiController = (() => {
     import(`../weather-icons/${weatherIcon}.svg`);
 
   const displayCurrent = (currentData, locationName) => {
-    const time = utils.getTime(currentData.currentTime);
+    // const time = utils.getTime(currentData.currentTime);
     const weatherId = currentData.currentWeatherId;
     const weatherIcon = utils.getWeatherIcon(
       weatherId,
@@ -19,7 +19,7 @@ const uiController = (() => {
     currentLocation.textContent = locationName;
 
     const currentTime = document.querySelector("#currentTime");
-    currentTime.textContent = time;
+    currentTime.textContent = utils.getTime(currentData.currentTime);
 
     const currentTemp = document.querySelector("#currentTemp");
     currentTemp.textContent = currentData.currentTemp;
@@ -86,9 +86,18 @@ const uiController = (() => {
     const { dailyArr } = dailyData;
 
     const dailyWeatherDiv = document.querySelector(".daily-weather");
+    dailyWeatherDiv.innerHTML = "";
 
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < 7; i++) {
+      const weatherId = dailyArr[i].weather[0].id;
+      const weatherIcon = utils.getWeatherIcon(
+        weatherId,
+        dailyArr[i].dt,
+        dailyArr[i].sunrise,
+        dailyArr[i].sunset,
+      );
+
       const weatherInfoDiv = document.createElement("div");
       weatherInfoDiv.classList.add("weather-info");
 
@@ -96,23 +105,23 @@ const uiController = (() => {
       day.classList.add("day");
       day.textContent = utils.getDay(dailyArr[i].dt);
 
-      const weatherIcon = document.createElement("img");
-      weatherIcon.classList.add("day-weather-icon");
-      weatherIcon.src = "";
-      weatherIcon.alt = "";
+      const dayWeatherIcon = document.createElement("img");
+      dayWeatherIcon.classList.add("day-weather-icon");
+
+      importIcon(weatherIcon).then((iconSrc) => {
+        const icon = iconSrc.default;
+        dayWeatherIcon.src = icon;
+      });
 
       const dayTemp = document.createElement("p");
       dayTemp.classList.add("hour-temperature");
       dayTemp.textContent = dailyArr[i].temp.max;
 
       weatherInfoDiv.appendChild(day);
-      weatherInfoDiv.appendChild(weatherIcon);
+      weatherInfoDiv.appendChild(dayWeatherIcon);
       weatherInfoDiv.appendChild(dayTemp);
 
       dailyWeatherDiv.appendChild(weatherInfoDiv);
-
-      // const dailyWeather = document.createElement("div");
-      // dailyWeather.textContent = ` Day Weather ${dailyArr[i].weather[0].main}`;
     }
   };
 
