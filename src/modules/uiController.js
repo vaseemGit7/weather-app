@@ -2,12 +2,24 @@ import weatherAPI from "./weatherAPI";
 import utils from "./utils";
 
 const uiController = (() => {
+  const importIcon = (weatherIcon) =>
+    import(`../weather-icons/${weatherIcon}.svg`);
+
   const displayCurrent = (currentData, locationName) => {
+    const time = utils.getTime(currentData.currentTime);
+    const weatherId = currentData.currentWeatherId;
+    const weatherIcon = utils.getWeatherIcon(
+      weatherId,
+      currentData.currentTime,
+      currentData.currentSunrise,
+      currentData.currentSunset,
+    );
+
     const currentLocation = document.querySelector("#currentPlace");
     currentLocation.textContent = locationName;
 
     const currentTime = document.querySelector("#currentTime");
-    currentTime.textContent = utils.getTime(currentData.currentTime);
+    currentTime.textContent = time;
 
     const currentTemp = document.querySelector("#currentTemp");
     currentTemp.textContent = currentData.currentTemp;
@@ -17,6 +29,13 @@ const uiController = (() => {
 
     const currentWeather = document.querySelector("#currentWeatherText");
     currentWeather.textContent = currentData.currentWeather;
+
+    const currentWeatherIcon = document.querySelector("#currentWeatherIcon");
+
+    importIcon(weatherIcon).then((iconSrc) => {
+      const icon = iconSrc.default;
+      currentWeatherIcon.src = icon;
+    });
   };
 
   const displayHour = (hourlyData) => {

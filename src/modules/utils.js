@@ -68,10 +68,85 @@ const utils = (() => {
 
     return result;
   };
+
+  const chooseDayNight = (currentTime, sunrise, sunset) => {
+    let time;
+    if (currentTime >= sunrise && currentTime < sunset) {
+      time = "d";
+    } else {
+      time = "n";
+    }
+    return time;
+  };
+
+  const getWeatherIcon = (weatherCode, currentTime, sunrise, sunset) => {
+    const codeMap = {
+      800: 0,
+      801: 1,
+      802: 2,
+      803: 3,
+      804: 4,
+      300: 5,
+      301: 6,
+      302: 7,
+      310: 8,
+      311: 8,
+      312: 9,
+      313: 9,
+      314: 10,
+      321: 10,
+      200: 18,
+      201: 20,
+      202: 22,
+      210: 11,
+      211: 17,
+      212: 19,
+      221: 21,
+      230: 12,
+      231: 14,
+      232: 16,
+      500: 23,
+      501: 24,
+      502: 25,
+      503: 25,
+      504: 26,
+      511: 26,
+      520: 27,
+      521: 27,
+      522: 28,
+      531: 28,
+      600: 29,
+      601: 30,
+      602: 30,
+      611: 31,
+      612: 31,
+      613: 32,
+      615: 32,
+      616: 33,
+      620: 33,
+      621: 34,
+      622: 34,
+      701: 38,
+      711: 39,
+      721: 36,
+      731: 37,
+      741: 35,
+      751: 37,
+      761: 37,
+      762: 37,
+      771: 38,
+      781: 38,
+    };
+
+    const weatherIcon = `${codeMap[weatherCode]}${chooseDayNight(currentTime, sunrise, sunset)}`;
+
+    return weatherIcon;
+  };
   return {
     getTime,
     getDay,
     getDate,
+    getWeatherIcon,
   };
 })();
 

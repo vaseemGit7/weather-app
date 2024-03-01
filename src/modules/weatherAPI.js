@@ -15,6 +15,7 @@ const weatherAPI = (() => {
         currentPressure: current.pressure,
         currentWindSpeed: current.wind_speed,
         currentWeather: current.weather[0].main,
+        currentWeatherId: current.weather[0].id,
       },
       hourlyData: {
         hourlyArr: hourly,
