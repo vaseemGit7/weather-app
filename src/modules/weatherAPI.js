@@ -14,7 +14,7 @@ const weatherAPI = (() => {
         currentUVIndex: current.uvi,
         currentPressure: current.pressure,
         currentWindSpeed: current.wind_speed,
-        currentWeather: current.weather[0].main,
+        currentWeather: current.weather[0].description,
         currentWeatherId: current.weather[0].id,
       },
       hourlyData: {

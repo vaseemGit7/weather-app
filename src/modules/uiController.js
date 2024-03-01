@@ -28,7 +28,9 @@ const uiController = (() => {
     currentFeelsLike.textContent = `${Math.round(currentData.currentFeelsLike)}°C`;
 
     const currentWeather = document.querySelector("#currentWeatherText");
-    currentWeather.textContent = currentData.currentWeather;
+    currentWeather.textContent = utils.captitalizeText(
+      currentData.currentWeather,
+    );
 
     const currentWeatherIcon = document.querySelector("#currentWeatherIcon");
 
@@ -161,10 +163,10 @@ const uiController = (() => {
     currentUVIndex.textContent = current.currentUVIndex;
 
     const currentPressure = document.querySelector("#currentPressure");
-    currentPressure.textContent = current.currentPressure;
+    currentPressure.textContent = `${current.currentPressure}hPa`;
 
     const currentWindSpeed = document.querySelector("#currentWindSpeed");
-    currentWindSpeed.textContent = current.currentWindSpeed;
+    currentWindSpeed.textContent = `${current.currentWindSpeed}m/s`;
   };
 
   const displayData = () => {

@@ -165,6 +165,16 @@ const utils = (() => {
 
     return weatherIcon;
   };
+
+  const captitalizeText = (text) => {
+    const captitalizedText = text
+      .toLowerCase()
+      .split(" ")
+      .map((str) => str.charAt(0).toUpperCase() + str.substring(1))
+      .join(" ");
+
+    return captitalizedText;
+  };
   return {
     getTime,
     getDay,
@@ -172,6 +182,7 @@ const utils = (() => {
     getWeatherIcon,
     getCityTime,
     getHour,
+    captitalizeText,
   };
 })();
 
