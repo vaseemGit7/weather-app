@@ -38,12 +38,22 @@ const uiController = (() => {
     });
   };
 
-  const displayHour = (hourlyData) => {
+  const displayHour = (hourlyData, currentData) => {
     const { hourlyArr } = hourlyData;
 
     const hourlyWeatherDiv = document.querySelector(".hourly-weather");
+    hourlyWeatherDiv.innerHTML = "";
+
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < 24; i++) {
+      const weatherId = hourlyArr[i].weather[0].id;
+      const weatherIcon = utils.getWeatherIcon(
+        weatherId,
+        currentData.currentTime,
+        currentData.currentSunrise,
+        currentData.currentSunset,
+      );
+
       const weatherInfoDiv = document.createElement("div");
       weatherInfoDiv.classList.add("weather-info");
 
@@ -51,23 +61,24 @@ const uiController = (() => {
       hourTime.classList.add("hour");
       hourTime.textContent = utils.getTime(hourlyArr[i].dt);
 
-      const weatherIcon = document.createElement("img");
-      weatherIcon.classList.add("hour-weather-icon");
-      weatherIcon.src = "";
-      weatherIcon.alt = "";
+      const hourlyWeatherIcon = document.createElement("img");
+      hourlyWeatherIcon.classList.add("hour-weather-icon");
+      hourlyWeatherIcon.src = "";
+
+      importIcon(weatherIcon).then((iconSrc) => {
+        const icon = iconSrc.default;
+        hourlyWeatherIcon.src = icon;
+      });
 
       const hourTemp = document.createElement("p");
       hourTemp.classList.add("hour-temperature");
       hourTemp.textContent = hourlyArr[i].temp;
 
       weatherInfoDiv.appendChild(hourTime);
-      weatherInfoDiv.appendChild(weatherIcon);
+      weatherInfoDiv.appendChild(hourlyWeatherIcon);
       weatherInfoDiv.appendChild(hourTemp);
 
       hourlyWeatherDiv.appendChild(weatherInfoDiv);
-
-      // const hourWeather = document.createElement("div");
-      // hourWeather.textContent = `Weather ${hourlyArr[i].weather[0].main}`;
     }
   };
 
@@ -154,7 +165,10 @@ const uiController = (() => {
           obtainedData.data.currentData,
           obtainedData.locationName,
         );
-        displayHour(obtainedData.data.hourlyData);
+        displayHour(
+          obtainedData.data.hourlyData,
+          obtainedData.data.currentData,
+        );
         displayDaily(obtainedData.data.dailyData);
         displayExtraInfo(
           obtainedData.data.currentData,
