@@ -19,7 +19,7 @@ body {
   font-family: "Nunito", sans-serif, system-ui, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-weight: 500;
-  background-color: #164e63;
+  background-color: #262626;
 }
 
 .app-container {
@@ -142,12 +142,22 @@ ion-icon {
 }
 
 .primary-info {
-  display: flex;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  grid-auto-rows: max-content;
+  align-items: center;
+}
+
+.additional-icon {
+  width: 90px;
+  height: 90px;
 }
 
 .info-details {
   display: flex;
   flex-direction: column;
+  /* border: 2px solid yellow; */
+  justify-content: center;
 }
 
 .info-title {
@@ -204,6 +214,37 @@ ion-icon {
   text-align: center;
 }
 
+.feelsLike-icon {
+  background-image: url(./indicator-icons/thermometer.svg);
+}
+
+.pop-icon {
+  background-image: url(./indicator-icons/umbrella.svg);
+}
+
+.sunrise-icon {
+  background-image: url(./indicator-icons/sunrise.svg);
+}
+
+.sunset-icon {
+  background-image: url(./indicator-icons/sunset.svg);
+}
+
+.humidity-icon {
+  background-image: url(./indicator-icons/humidity.svg);
+}
+
+.uv-icon {
+  background-image: url(./indicator-icons/uv-index.svg);
+}
+
+.pressure-icon {
+  background-image: url(./indicator-icons/barometer.svg);
+}
+
+.wind-icon {
+  background-image: url(./indicator-icons/wind.svg);
+}
 ::-webkit-scrollbar {
   width: 12px;
 }
