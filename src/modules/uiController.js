@@ -22,7 +22,7 @@ const uiController = (() => {
     currentTime.textContent = utils.getTime(cityTime);
 
     const currentTemp = document.querySelector("#currentTemp");
-    currentTemp.textContent = `${Math.round(currentData.currentTemp)}°C`;
+    currentTemp.textContent =   Math.round(currentData.currentTemp);
 
     const currentFeelsLike = document.querySelector("#currentFeelsLike");
     currentFeelsLike.textContent = `${Math.round(currentData.currentFeelsLike)}°C`;
