@@ -199,6 +199,8 @@ const uiController = (() => {
           obtainedData.data.dailyData,
           obtainedData.data.timeOffset,
         );
+
+        searchInput.value = "";
       } else {
         errorMessage.textContent = "Unable to find city";
       }
