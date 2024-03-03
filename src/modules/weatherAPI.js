@@ -36,8 +36,6 @@ const weatherAPI = (() => {
       );
 
       const data = await response.json();
-      console.log("Data", data[0]);
-      console.log("lat :", data[0].lat, " ", "lon :", data[0].lon, " ");
       const coords = {
         lat: data[0].lat,
         lon: data[0].lon,
@@ -45,7 +43,6 @@ const weatherAPI = (() => {
       };
       return coords;
     } catch (err) {
-      console.log(err);
       return null;
     }
   };
@@ -59,10 +56,8 @@ const weatherAPI = (() => {
       );
       const locationName = coords.location;
       const data = parseWeatherData(await response.json());
-      console.log(data);
       return { data, locationName };
     } catch (err) {
-      console.log(err);
       return null;
     }
   };

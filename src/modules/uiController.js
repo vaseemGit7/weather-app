@@ -203,6 +203,10 @@ const uiController = (() => {
         errorMessage.textContent = "Unable to find city";
       }
     });
+    window.onload = () => {
+      searchInput.value = "London";
+      searchBtn.click();
+    };
   };
 
   return {
