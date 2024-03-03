@@ -10,24 +10,27 @@
     <div class="app-container">
       <div class="weather-report-container">
         <div class="search-box">
-          <input type="text" id="searchInput" />
-          <button id="searchBtn"><ion-icon name="search"></ion-icon></button>
+          <div>
+            <input type="text" id="searchInput" />
+            <button id="searchBtn"><ion-icon name="search"></ion-icon></button>
+          </div>
+          <p class="error-message"></p>
+        </div>
+        <div class="location-time">
+          <p id="currentPlace"></p>
+          <p id="currentTime"></p>
         </div>
         <div class="weather-report">
-          <div class="location-time">
-            <p id="currentPlace">London,UK</p>
-            <p id="currentTime">11:11</p>
-          </div>
-          <p id="currentWeatherText">Sunny</p>
+          <p id="currentWeatherText"></p>
           <div class="temperature">
-            <p id="currentTemp">36</p>
+            <p id="currentTemp"></p>
             <p id="degree">°C</p>
             <img src="" alt="" id="currentWeatherIcon" />
           </div>
           <div class="temperatureMinMax">
-            <p id="currentTempMax">38°C</p>
+            <p id="currentTempMax"></p>
             /
-            <p id="currentTempMin">30°C</p>
+            <p id="currentTempMin"></p>
           </div>
         </div>
         <div class="weather-conditions">
@@ -35,80 +38,79 @@
             <div class="feelsLike-icon additional-icon"></div>
             <div class="info-details">
               <p class="info-title">Feels like</p>
-              <p class="info-value" id="currentFeelsLike">36°C</p>
+              <p class="info-value" id="currentFeelsLike"></p>
             </div>
           </div>
           <div class="primary-info">
             <div class="pop-icon additional-icon"></div>
             <div class="info-details">
               <p class="info-title">Rain probability</p>
-              <p class="info-value" id="currentRainProbability">10%</p>
+              <p class="info-value" id="currentRainProbability"></p>
             </div>
           </div>
         </div>
       </div>
       <div class="weather-additional-container">
+        <div class="topbar">
+          <p class="current-date" id="currentDate"></p>
+          <div class="logo">
+            <div class="logo-icon">
+              <ion-icon name="cloud"></ion-icon>
+            </div>
+            <p class="app-name">Weatheria</p>
+          </div>
+        </div>
         <div class="environmental-informations">
-          <p class="current-date" id="currentDate">Friday 10, September 2024</p>
           <div class="primary-info">
             <div class="sunrise-icon additional-icon"></div>
             <div class="info-details">
               <p class="info-title">Sunrise</p>
-              <p class="info-value" id="currentSunrise">5:00</p>
+              <p class="info-value" id="currentSunrise"></p>
             </div>
           </div>
           <div class="primary-info">
             <div class="sunset-icon additional-icon"></div>
             <div class="info-details">
               <p class="info-title">Sunset</p>
-              <p class="info-value" id="currentSunset">6:00</p>
+              <p class="info-value" id="currentSunset"></p>
             </div>
           </div>
           <div class="primary-info">
             <div class="humidity-icon additional-icon"></div>
             <div class="info-details">
               <p class="info-title">Humidity</p>
-              <p class="info-value" id="currentHumidity">10%</p>
+              <p class="info-value" id="currentHumidity"></p>
             </div>
           </div>
           <div class="primary-info">
             <div class="uv-icon additional-icon"></div>
             <div class="info-details">
               <p class="info-title">UV Index</p>
-              <p class="info-value" id="currentUVIndex">1</p>
+              <p class="info-value" id="currentUVIndex"></p>
             </div>
           </div>
           <div class="primary-info">
             <div class="pressure-icon additional-icon"></div>
             <div class="info-details">
               <p class="info-title">Pressure</p>
-              <p class="info-value" id="currentPressure">1014</p>
+              <p class="info-value" id="currentPressure"></p>
             </div>
           </div>
           <div class="primary-info">
             <div class="wind-icon additional-icon"></div>
             <div class="info-details">
               <p class="info-title">Wind Speed</p>
-              <p class="info-value" id="currentWindSpeed">2.58</p>
+              <p class="info-value" id="currentWindSpeed"></p>
             </div>
           </div>
         </div>
-        <div class="hourly-weather">
-          <div class="weather-info">
-            <p class="hour">1am</p>
-            <img src="" alt="" class="hour-weather-icon" />
-            <p class="hour-temperature"></p>
-          </div>
-        </div>
-        <div class="daily-weather">
-          <div class="weather-info">
-            <p class="day">1am</p>
-            <img src="" alt="" class="day-weather-icon" />
-            <p class="day-temperature"></p>
-          </div>
-        </div>
+        <p class="hourly-title">HOURLY</p>
+        <div class="hourly-weather"></div>
+        <p class="daily-title">DAILY</p>
+        <div class="daily-weather"></div>
       </div>
     </div>
+    <div class="app-footer"></div>
     <script
       type="module"
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
