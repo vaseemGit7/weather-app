@@ -22,7 +22,7 @@ const uiController = (() => {
     currentTime.textContent = utils.getTime(cityTime);
 
     const currentTemp = document.querySelector("#currentTemp");
-    currentTemp.textContent =   Math.round(currentData.currentTemp);
+    currentTemp.textContent = Math.round(currentData.currentTemp);
 
     const currentFeelsLike = document.querySelector("#currentFeelsLike");
     currentFeelsLike.textContent = `${Math.round(currentData.currentFeelsLike)}°C`;
@@ -171,9 +171,15 @@ const uiController = (() => {
 
   const displayData = () => {
     const searchBtn = document.querySelector("#searchBtn");
+    const errorMessage = document.querySelector(".error-message");
+    const searchInput = document.querySelector("#searchInput");
+
+    searchInput.addEventListener("input", () => {
+      errorMessage.textContent = "";
+    });
+
     searchBtn.addEventListener("click", async () => {
-      const searchInput = document.querySelector("#searchInput").value;
-      const obtainedData = await weatherAPI.getWeatherData(searchInput);
+      const obtainedData = await weatherAPI.getWeatherData(searchInput.value);
 
       if (obtainedData) {
         displayCurrent(
@@ -194,7 +200,7 @@ const uiController = (() => {
           obtainedData.data.timeOffset,
         );
       } else {
-        console.log("Unable to fetch data");
+        errorMessage.textContent = "Unable to find city";
       }
     });
   };
